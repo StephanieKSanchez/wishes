@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { createWish } from "./service/wish-list.service";
+import { createWish, getWishes } from "./service/wish-list.service";
 
 const app = express();
 app.use(express.json());
@@ -14,4 +14,11 @@ app.post("/", async (req, res) => {
       message: "Wish is not Possible",
     });
   }
+});
+app.get("/", async (req, res) => {
+  const wishes = await getWishes();
+  res.send(wishes);
+});
+app.listen(3000, () => {
+  console.log("Listening on http://localhost:3000");
 });
